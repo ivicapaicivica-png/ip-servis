@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IP Servis mobitela Šibenik</title>
+  <meta name="description" content="IP Servis – servis mobitela i tableta u Šibeniku. Popravci, mikroservis, spašavanje podataka, prodaja rabljenih uređaja." />
+  <style>
+    :root{
+      --bg:#050505;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(0,0,0,.25);
+      --stroke:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.70);
+      --gold:#d4af37;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .bg{
+      position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(900px 480px at 18% 10%, rgba(212,175,55,.22), transparent 60%),
+        radial-gradient(720px 420px at 85% 18%, rgba(212,175,55,.14), transparent 55%),
+        radial-gradient(860px 520px at 45% 92%, rgba(255,255,255,.06), transparent 60%),
+        linear-gradient(to bottom, rgba(0,0,0,.25), rgba(0,0,0,.82));
+    }
+    .dots{
+      position:fixed; inset:0; pointer-events:none; z-index:-1;
+      background-image: radial-gradient(rgba(255,255,255,.09) 1px, transparent 1px);
+      background-size: 18px 18px; opacity:.22;
+      filter: blur(.2px);
+    }
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(16px);
+      background: rgba(0,0,0,.35);
+      border-bottom:1px solid var(--stroke);
+    }
+    .container{max-width:1100px; margin:0 auto; padding:0 16px}
+    .row{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:12px 0}
+    .logo img{height:40px; width:auto; display:block}
+    .nav{display:none; gap:6px; align-items:center}
+    .nav a{padding:10px 12px; border-radius:14px; color:var(--muted)}
+    .nav a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:8px;
+      padding:10px 14px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.08);
+      color:var(--text);
+      cursor:pointer;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.04) inset;
+      user-select:none;
+    }
+    .btn:hover{background: rgba(255,255,255,.12)}
+    .btn.secondary{background: rgba(255,255,255,.05)}
+    .btn.secondary:hover{background: rgba(255,255,255,.09)}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.06);
+      color:var(--muted);
+      font-size:12px;
+      width:fit-content;
+    }
+    .dot{width:7px;height:7px;border-radius:999px;background:var(--gold)}
+    h1{margin:0; font-size:34px; letter-spacing:-.02em}
+    @media (min-width: 880px){ h1{font-size:54px} .nav{display:flex} }
+    .hero{padding:34px 0 18px}
+    .grid2{display:grid; grid-template-columns:1fr; gap:18px; align-items:center}
+    @media (min-width: 880px){ .grid2{grid-template-columns:1.25fr .75fr; gap:24px} }
+    .lead{margin:14px 0 0; color:var(--muted); font-size:16px; line-height:1.5; max-width:62ch}
+    @media (min-width: 880px){ .lead{font-size:18px} }
+    .chips{display:flex; flex-wrap:wrap; gap:10px; margin-top:16px}
+    .chip{padding:8px 12px; border-radius:999px; border:1px solid var(--stroke); background: rgba(255,255,255,.05); color:rgba(255,255,255,.82); font-size:13px}
+    .card{
+      border-radius: var(--radius);
+      border: 1px solid var(--stroke);
+      background: var(--card);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+    .card .pad{padding:16px}
+    .card h3{margin:0; font-size:14px; color:rgba(255,255,255,.88)}
+    .kv{display:flex; gap:12px; align-items:flex-start; margin-top:12px}
+    .k{min-width:34px;height:34px;border-radius:14px;border:1px solid var(--stroke); background: rgba(255,255,255,.05); display:grid; place-items:center}
+    .k span{color:var(--gold); font-weight:700}
+    .v .t{font-size:13px; color:rgba(255,255,255,.88); font-weight:600}
+    .v .s{font-size:13px; color:var(--muted); margin-top:2px}
+    section{padding:22px 0}
+    .sectionHead{display:flex; align-items:end; justify-content:space-between; gap:14px}
+    .sectionHead h2{margin:0; font-size:24px; letter-spacing:-.01em}
+    .sectionHead p{margin:6px 0 0; color:var(--muted); font-size:13px}
+    .cards4{display:grid; grid-template-columns:1fr; gap:12px; margin-top:14px}
+    @media (min-width: 680px){ .cards4{grid-template-columns:repeat(2,1fr)} }
+    @media (min-width: 980px){ .cards4{grid-template-columns:repeat(4,1fr)} }
+    .mini h4{margin:0; font-size:14px}
+    .mini p{margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.45}
+    .iconBox{width:40px;height:40px;border-radius:16px;border:1px solid var(--stroke); background: rgba(255,255,255,.05); display:grid; place-items:center; margin-bottom:10px}
+    .iconBox span{color:var(--gold); font-weight:800}
+    .devicesControls{display:grid; grid-template-columns:1fr; gap:10px; margin-top:12px}
+    @media (min-width: 880px){ .devicesControls{grid-template-columns:1.4fr .8fr .8fr} }
+    input, select{
+      width:100%;
+      padding:11px 12px;
+      border-radius:16px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.90);
+      outline:none;
+    }
+    input::placeholder{color: rgba(255,255,255,.45)}
+    select option{background:#0a0a0a}
+    .devicesGrid{display:grid; grid-template-columns:1fr; gap:12px; margin-top:12px}
+    @media (min-width: 680px){ .devicesGrid{grid-template-columns:repeat(2,1fr)} }
+    @media (min-width: 980px){ .devicesGrid{grid-template-columns:repeat(3,1fr)} }
+    .price{color:var(--gold); font-weight:800; font-size:18px}
+    .muted{color:var(--muted)}
+    .badges{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+    .badge{font-size:12px; padding:7px 10px; border-radius:999px; border:1px solid var(--stroke); background: rgba(0,0,0,.22); color:rgba(255,255,255,.85)}
+    .badge.soft{background: rgba(255,255,255,.05); color:rgba(255,255,255,.80)}
+    .deviceActions{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap}
+    .small{font-size:12px; color:rgba(255,255,255,.55); margin-top:10px}
+    .aboutGrid{display:grid; grid-template-columns:1fr; gap:12px}
+    @media (min-width: 980px){ .aboutGrid{grid-template-columns:2fr 1fr} }
+    .stack > div{border-radius:18px; border:1px solid var(--stroke); background: var(--card2); padding:12px; margin-top:10px}
+    .stack .tt{font-weight:700; color:rgba(255,255,255,.92); font-size:13px}
+    .stack .ss{color:var(--muted); font-size:13px; margin-top:4px}
+    .contactGrid{display:grid; grid-template-columns:1fr; gap:12px}
+    @media (min-width: 980px){ .contactGrid{grid-template-columns:1fr 1fr} }
+    .map iframe{width:100%; height:100%; border:0}
+    .map{aspect-ratio: 4/3}
+    footer{border-top:1px solid var(--stroke); background: rgba(0,0,0,.40); backdrop-filter: blur(16px); padding:22px 0; margin-top:8px}
+    .fade{animation: fadeUp .5s ease both}
+    @keyframes fadeUp{from{opacity:0; transform: translateY(10px)} to{opacity:1; transform: translateY(0)}}
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="dots"></div>
+
+  <div class="topbar">
+    <div class="container">
+      <div class="row">
+        <div class="logo">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhATEg8PFREREBAQEhUPFxAWFRUWFR0aFhURFRUYHCggGBolGxUVITEtJyk3Li4vGB8zODMtOCgtLisBCgoKDg0OGxAQGy4mICYtLS0tLS0uLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAHoBngMBEQACEQEDEQH/xAAcAAEAAgMBAQEAAAAAAAAAAAAABQcDBAYCCAH/xABQEAABAwICBQcGCAoJAwUAAAABAAIDBBESUQUGByExEzJBYYGRsRQicXKT0kJSVJKhstHTFTNDRFNVYnOCoiMkNWR0lMLi8BYXYzSDs8HD/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAIDBAUBBv/EADYRAQACAQICBwYGAgIDAQAAAAABAgMEERJRBRMUITFBkTJSYXGBoSIzQrHR4RXBIzRi8PFD/9oADAMBAAIRAxEAPwCqZ3HE7eec7xUXrxiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKBiOZQMRzKDa0c44jvPNPiEGvPznes7xQeEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBBtaO5x9U+IQYJ+c71neKDwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgINrR3OPqnxCDBPznes7xQeEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBBtaO5x9U+IQYJ+c71neKDwgICCa1b1YqK11omgRg2fLJcMb1Dpc7qHbZZtRq8eCPxePLzWUxWv4LR0JsuomAGblJ37icbnMZfqYwjd6SVy79JZb+z3NEYKx4ugfqbo1osNH0nbGwnvKh2nN70pRjryaU2qmjx+YUns2fYnac3vSl1VOTRm1ZoR+Y0vs2fYpdpy+9KUYqcmjNq9RjhR0/zG/Yve0ZfelKMOPlCNrtFUcbXvdTQBrGlziGA2A3k2AUqZs1piItL2cWKsbzEIA12jL8yO37p/urT1eq5/dV1mm5fZI0mktCDnxxH008p/wBCdXq+f3Qm+Dyj7Jqm0zq0B50FOT10kx//ADXnV6vn91U2xcmU6b1Z+T03+Um+7UJxazn9zixjarVmbzcFKy+65jnp/wCfC23eoTXXU743n0lL/ilq6Y2WwSs5XR9TxF2tkcJIndTZR5ze3EvMfSl6Tw5q/wA+hOCJjesqy0no6WnkdFNG6ORvFrukdDmkbnNOY3Lr48lcleKk7wzWrNZ2lqqbwQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEG1o7nH1T4hBgn5zvWd4oPCAgm9UdAOrZxHvETAHzOHEN6Gj9px3DtPQsus1UafHxec+C3Fj6y2y99GUTImMjjYGsYMLWt4AL5jite02tO8y6G0VjaEvE2wV9YQlrVMoAJJ3AEn0DirIjcVDR7SqqeWKNtPTgSysY3dLcB7gLnz+IBv2Lq20GOtZmZnuZq6i0zts72oeuY3Qjp3r1OEDrG7+r1H7mTwKuwfm1+aOX8u3yVeu646R1e0b5VVU9PcjlpWsJba4bxeRfdcNDioZL8FJtye1jedlsHY5R/Kq7vp/uly56RvHlH3X9TDydj1H8qre+n+6UJ6TyR5R90owQgdZ9lT4YzJSTPmwAl0UobyhA4ljmgBx6rdvQrcHSdbW4ckbfHyRvgmI3hxGgdO1FG/lKeUtubuYbmN/U9nA+niOghdDNgx5q8N4/lTW81neFqk02nqM7hHUxbt+90MhG7f8KJ1u23Q5u75+Zy9HZudZ+8fzDZ+HPX4qdq6Z8T3xyNLZI3OY9p6HDcfSPFfR0vW9YtXwlimNp2liUnggIJPQ2gKiqvyMd2g2L3nCwHLF0n0ArNqNZh0/5k9/LzWY8N7+zDqKfZpKbY6uNp6QyNzx3lzfBc2enKb/hpPrt/qWiNFbzlmfssl+DWxE5Pic36Q93gpV6ZpPjSfX+nk6SfKXO6e1PrKNpfLE0xCwMkLsTBc2GK4Dm7yBvFt66GDWYs3dWe/lKi+K1PFALUrdxR7L6ySOKVs1GGyxslaHOmuA8BwBtHxsVhtr8dZmNpXRgtMPTtldaPy1H86f7pR/yGPlL3s9mN2zKsH5ak+dN92vf8hj5S97NbmxO2cVY/K0vzpvu07fj5S97Lbm5KpiLHvYbXY97DbhdpLTbq3LbWd4iWaY2nZ0MOpdQ5jHiSns9rXi5kvZwuL+Z1rJbW0iZjaWmNLeY33fjtS6gflKfvk9xedux8pS7HfnDGdUZ/jwd8nur3t2PlJ2O/OGjpLQVRAMUkZwbhjYcTe0jh2q7Hnx5PZlRfDenjDd1Y1Ulrw/kZqdroyMTJXSB1jwcMLDu3Edi8zaiMW28PKY5v4MOtGrM9BIxk+A8ozGx8RcWOtuc0FwBuN193SFLDmrljeHlqTWdpQytREG5ojRklTNHBC28kjrC/ADi57j0NAuT6Ok7lDJkrjrN7eEPaxNp2h0en9ntRRwPnmqKPA2wsx0xc5x3NY0GMXJ9OZ6Fkw6+mW8UrE7rLYZrG8oXVrQMtdNyETo2v5N0t5S4Ns0tBF2tJv5w6FfqNRXBTjt4I0pN52hm1p1YmoHxMmfC4ytc9vIl5ADSAb4mjNR0uqpqImax4GTHNJ2lDxRuc4Na1znOIDWtBLiTwAA3krRMxEbyg7PRezGtkAdK6GAEcHkvk7Wt3D5y5WbpnT452rvb7R9/4aa6W8+Pc3p9lbmj/ANe0n9wbd/KqivTlbf8A5/f+lnY55/ZCaQ1FqI+ZJFJbo3sd2A3H0rZi6TxX8YmPuhbR3jwndzU8LmOLXtLXN3EHiF0K2i0bwzTExO0sa9eCDa0dzj6p8QgwT853rO8UHhAQXNsy0WIqON9vPqCZnHqO5g9GEA9pXzHSeWcmomvlXu/l0dPXhx783dU7FnpCcy2ZXWCvhByuvddyVDVvBseRdG0/tSf0bbdrgtOmrxZax8Uck7UlUWz+mx10OUTZJT2DCP5ntXW1luHFPx7mbBG+SFqzvXEdKEdO9SThB6eN4Kj9zIfoKtwfmV+cI5vy7fJWq7rjN7QmlZKSZk8ODlY8WEyNxAYgWk2vxsSo3pF68NvB7E7TvDqDtV0n8em9l/uWXsGH4+qfXWP+6ekvjU3sv9y8no7BPlPq96662NUNPeW0kVQWYXOxNe0XsHsJa7D1G1x6VwdZh6nLNGzFbirupLaDTMj0lWtYAG8ox9hwBkYyR/8AM5y+h0N5vp6TP/u0yxZYiLy86jaZNJWQvueTkcIJR0FjyBiPqus7sOajr9PGfBavnHfHzgw34LxLotsWiwyohqGjdOwskt8eO1iestcB/AsPQmfjx2xz5eHyldq6bWi3NXy7TKIPx53H0L0Xjg8npiII8XJQkxMHwyBcC+ZPivht+uz/APLO28988u92duCn4VX1Wule5x/rBjIO9kbGNwnIhwLu8r6nH0Zpax3V3+Mzu5ttTlmfHZlo9e9IRm/lAeMpmRkd7QD9Klbo7TT+nb5PIz5I80zpjaC2roainlhMc7xFgdGcUbsMjHEG+9hs05jdxVOLo/qcsXrO8fdK2firMS4Erps76JpKh0ejInttij0cx7b7xdsQIuPSF8/MRObaef8AtvidqfRUv/cvSB+HT+zH2rq9hw/H1Zuvu8O2i15+HB7MfanYcPx9TtF2M6/1x+FD7MfanYcPx9XvaLuaqJS9z3utie5z3WzcST9JWusbRtCiZ3WmZyyiD22xMpA9t+F2suL9y4e0Tm2nm60Ttj3jk4Y621R+FH8wfaul2LF8WHteR5GtVSDe8Z9LfsKdixfF72vJ8Fi6r1PlVOx8kYAkD2uad7XC5abX6Db6Vzc1OqybRPg10t1lN5VzozSbtH1rpIrkQzyxOaT+MiDi1zCcyGgg5gFde9Iy49recOdE8Fu5eGntEwaW0e3A4WkaJqaQjmPtuuOI6WuHp6QuRjvbT5O/6tFoi8Pnqpp3xvfHIwskjcWPa7i1zdxC7cTExvDJtsxEr0Xfss1V8lg8olbaoqGg2dxjiO9rN/Anc49g6F8/0hqestwV8I+8tmHHwxvKvtpGtPltRhjdemgJbFbhI7g6bt4Dq3/CK6eh03U03n2p8f4UZcnFPwbOx7+0D/hJ/rRqrpb/AK/1hLTe2kNtv4+i/czfWaqOhfy7/OP2T1XjDzsYpI3TVUjgDJFHE2O/wRIX43Dr8xo7Tmo9N5LRjrWPCZnf6PdJETaZTG0vWmspHxsgaI4nsvy5aHXeSQY2l3mtIAB3i5v1LJ0VodPnrNr987+G/lzWajLek7V9Vfu1x0gTc1sh/hht3YLLtf4/Sx3cEff+WXr8nNt02u9RwlayQdJAwO7xuPcq7dG4v0d33W01d48e9DacrGzTPkZfC4M524izQCD2hasGOceOKyqzXi95tDQVyoQbWjucfVPiEGCfnO9Z3ig8IBXo+idWYQKalA4CngA9GAL5DLvOW0zzn93Ur7MJ+Jtgp1hGWGd6sIVxtfrcNNFGPys4J9WMF31ixdDo+u+SZ5Qp1E/hiHP7LqffUy5COIdt3O8GK7pC3dWv1eaSvfMu0neua3wjp3r1OEfpWO9LVu/u8x/lKtwfm1+cKs8/8c/JWK7rjrN2Tap01XBUy1MAkAmbFHiMjbYWhziMJF78o35q52t1F8doisrsVItHe7g7PdF/ImfPn99c+dbn95f1NeTydn2jPkTPnz++qp1+f3nvU05JjRmjYqaNsUEYZG0uIaMR3uJJNySTvJWLNltktxWneVtaxWNofOusdby9XVS3uJKiUtP7IJaz+UNX12npwYq15RDnXne0yjJT5rvQVdHiitja6/FS0pPO5dh7433XzXQsTGe/y/236v2IVSvpGAQEHaas69GFjYqhjnsYA1j2WxtaODXA84DO9/SuNreiYy2m+OdpnxjybMOq4Y4bOrbp3RVUByr6V3VVMDSO2QeBXOrpNbg9mJ+k/wAL5y4b+O31bTdS9F1AuyKP000rgO5rsP0K2uu1eP2p9YQnDinwQOntlLmtc+jmc8gE8lNhxO6mSCwv1Edq6GDpPinbJG3xhRfT7eyrRwIuCCCLgg3BBHEEHgV1WZ9GaJewUFMZMPJihhL8Qu3CIxiuOkWuvnskTOWYjx3dCvs97nH6X0J0HR3ZFH7iv6nVfH1Qi2L4Nd+ldDdBoPZM9xe9Vqvj6pceL4OT18q6J8UQpfJ8Ymu7kWNacOFw3kAXF7LXpKZa2nrN/DzU55pMRwuKK3sy2act8mjx4cHk7MeLm4cAxX6rXXAvv1k7eO7r124I35IR8mjejyLuj+xX7an/AMle+n+DZ0ZR0khvHFTODTa7WsNjxyUL3zV7rTMLK1xW76xDPrBrW2kBijY4z4AW4haNgPB/7XTuG7da4Vmn0s5PxTPcoz5op+GPFWTnEkkkkkkkniSeJK6znrF2Q62chL5HM60M7rwlx3MmPwOpr/rW+MVg12Djrxx4x+y3FfadpTG2LVTE3y+FvnMAbVADnMG5s3pbuB/Zt8VU6DUbT1dvonlp+qHMbLdVfK5+XlbempnAkHhJLxbH1gbnH+EdJV+u1PVU4a+M/shhpxTvLsNretXIReSRO/pp23lLTvjiO4jqc/ePQHdSw9Habjt1lvCPD5/0uz5No4YUwu4yO32Pf2gf8JP9aNczpb/r/WF+m9tIbbfx9H+5m+s1U9C/l3+cfsnqvahxer2nJaKZs0JF7Fr2uvhe08WO7gQegjsXS1OmpqMfBf8A+KKXmk7wtLRu0uimbhnD4XHc5sjTJGfQ5oO70gL5vL0NqMc7453+XdLdXVUn2mGpptEVFyxtA4njyRjY7+Ug3U6X12LutxfXvS4cF+SA0lqdTfkzIzKzsQ7nXP0rdi6Qy/q7/s8tpKT4dzj9MaIkp3AOsWuvhc3gbcQR0FdTDnrljeGLLhtjnaUerlQg2tHc4+qfEIME/Od6zvFB4QEF/bN6wTUFKb742cg7MGLzN/pAae1fN6zFwZ7fHv8AVvxW3pDq5DYKuEmhO9SShTu1qsxVMMf6KEuPpkO/6GN712Oj67Y5nnLJqZ/FEJjUGnwUbXW3yySSHsOAfQxZdbbfLtyadNXam6WnesrVDRdvNkSbGmae1DWH+6z/AFSrcH5tfnDPnn8EqfXdcp9CbL6LktGUg6ZWvnP/ALri5v8AIW9y4GtvxZp+Hc2YY2qqbWrWyrdW1ZirKtkQqJGMbHLK1obGcAwtDrC+G/aurh02Pq671jfbkz2vPFO0or/qeu/WFb7ef3lZ2bD7seiPHbm/P+pq75fW+3m95OzYfcj0OO3NFK5Fv6C0caioghAuJJGh3Uwb3n5ocqdRljFitefKPv5J468Voh2O1ivDnQQi27FM4ZX81n+tcrobFMRa8+fc1ay3hVX67bEIBXo7mr1BL44paaQXfFG90cpNrloJwP79x71wsfTEVvNMseEz3x/DbbSb1iaS5ur1brI+fST+ljTIO9lwupj1mDJ7N4/b92a2K9fGH5QavVr3AxUdVjHB2B8dv43WA71K+owxH4rR67vIx38oXtqXSVMVLGyrlxzDESScRa2/msc/4RA4n6Ta6+f1Fsd8kzjjaG2kWiv4lD6zVMctXWSRW5N9TM9hHAguPnjqPHtX0WGJjHWJ5QwW75leMMTn6LYxgu9+jWMaN29zoQAN+7iVxJmIz7zz/wBt0R+D6KcOpGkR+ZP+fT++uv2rD7zJ1N+TwdTdIfI3/Pp/fXvasPvPepvyeTqjX/JH/Pg99O1Yfe/c6jJyQ00ZaXNcLOaXNcN24jcRu6wr4neN4VTGyzqk/wBQP+CP/wAa4kfn/X/bqz+V9P8ASr13HKSurmlvJpg435N1myDq+MOsce/NUajD1tNvPyW4cnV238lh606v+WU4dFYzRtxxFtvPad5jv1ixHWBmVzdNm6q+1vCWvPSL13hU/wDzeuw55/zcgvzZxrQNIUpjmIdUQtEc4db+kYdzZbdIcLg9YPQQuFrME4b8VfCfBrxX4o2lIV9RTaIoSWMDYoQWxRgm75HEkMud5JO8noFz0Kitb6nL3+MpzMY6vnzSNdJPLJNK7FJK4veei/QAOgAAAdQC+ipStKxWvhDFMzM7y1lJ47fY9/aB/wAJP9aNczpf/r/WF+m9tIbbPx9H+5m+s1U9C/l3+cfsnqvahAahauR176iKRz2lsIfG9nFrsQG9p3OFjw8Fq6Q1dtNSt6xv396vDjjJMxLLpjZ3XQE4GNnZ0OhIxW643WI7LqvB0tpsnjPDPx/l7fTZK+He52TRNQDZ1LUg5GKX3VvjPimN4tHrCrq7cp9E5q1oyrZI0kPjiHOa8kBwyDM+uyx6rNhtSY8Z/wDfNq0+PLFt/CG9rvK0QsabYnSAt9ABufpA7VVoKzxzPwW6yY4IhxS6rnCDa0dzj6p8QgwT853rO8UHhAQdxsr1pbSTuhmdanqSPOPCOUbmvOTSLNOVmngCsWt0/WV4o8Y/ZbivwztK653ritsI2oevYShTW0XRs4q5ZSx7opAwsc0EgYWhpYbcDcE7+N12tFkpOOK798MWopaLbu40fByUEMf6OJjT6QBf6brmZbcV5t8XQx14axDDO9QXQ/dHw4jdHlpSusFPbR9ccqOo+oVbg/Nr84ZM0/hlRThuNuNl3nOfQ2hdZ6U6OEsMjA2mpPOjJAfGYmfi3N4jm2HQehfPZcGTruG0eMtlbxwvnoEneTcneTmekr6BjEBB6jYXENa0uc4hrWtBLiTwAA3kpMxEbybbrQ1a0I3RlPJVVRDZnM3jceSYeEQze42vbpsBwufnNVqZ1uWMOH2f3+Pyh0MOOMVZvbxVzpfSLqiaSZ/F53D4rRua3sH/ANrvYMUYscUjyYb3m9uKWmrURAQdTofXqpga1jmslY0BrQ+7XADcBjHRbMFczUdE4cs8Ub1n4fw049VesbT3ulptp8IAx0s4P/jdG4d5LVinoW8eF49FvbI5Nh21eADzaSpJ6MZiaO8F3gp16IvHjaPu8nVR5Q5jWTaHV1bHRAMghcLObESXOHS10htu6gB13XQwaDHinfxlnvmtbucgtqpYNDtSkiiiiFFGRFFHECZXC+ABuK2DdeywW6Pra0zxfZfGomI22enbVpD+Yx+2d92o/wCOr732/tLtM8mJ20+Q/mUftXe4vf8AHV977f297VPJidtIkP5oz2rvcT/H1977f2drnk4uqmxvkfa3KPe+3G2Il1r9q31jaIhmmd53T8mtrjAYeQbYw8jixn4uHFbCsnY44+Pfz38GntU8HDt5bObWxlEHWaua9S0kTYuRbK1hOAue5pa34nNNwDe3csmbR1yW4t9l9M81jZBac0g2onkmbA2HlDicxri4Y/hPBsLX42zuelaMdJpWK77qrTvO7QU0Unq3puSiqI6iPeWGz29D4zz4z6bbsiAehV5sUZaTSXtbcM7pjaJrZ+EJ28niFNCLRNdcFziPPlcOg9AyA6yqNHpupr3+Mp5L8UuUWtWIJnVPWB1BOZ2xCQmJ8WFziwecWnFcA/F+lZ9Vpo1GPgmdk8d+C27Y1x1pdpB8L3QNi5Jj2ANeX3xEG+9otwUNHo401ZrE77/DZ7lydZO+yP0Hpqekk5SB+FxGFwIDmubxwuB6L5b+tW59Pjz04MkbwjS9qTvDuKTau61p6RpNt7oHkX/gcN3zlxsnQVd96X9Ya66znD8qNo0DvyFSPTyXvr2vRGSP1R90+2V5ShK7XQuvycFsjIb/AMrftWzH0dt7VvRG2t92HM1lW+VxfI4uce4DIDoC6FKVpG1WO95vO8sCkiINrR3OPqnxCDBPznes7xQeEBAQd3qhtDfTtbDUh0kLQGseN8kY6Gm/PaO8de4DDqNFF54qd0r8ebh7pWDR6agqBihmjfmGnzh1Oad7e0LmXxXpP4obKXrbwl4neoLYhGzvXqcQ0H7zZeppzRVNw3IqvLoqzRHL0tRBiwcvBJDitfDjaW4rXF7XzXtL8FotyZb98bK8Oxh/6xZ/l3ferdPSce79/wCmfqPi8O2MP/WEe7+7n71QnpaI/T9/6e9n+Idjj/1gz/Lu+9UZ6Yr7n3/p72aebydj7/1gz2DvvVCemqx+j7/0l2X4slPsiaD/AElc4j/xRBh73Od4Kq/Tk/pp6y9jSc5b/L6I0QHYC19RYjzSJZz1E8IwbdQWea67Xztbur6R/f3WROHD4eKudaNZpq193+bG03jjabhv7Tj8J3X3dN+7pNFj01dq98+csmXNbJPehFrVCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg2tHc4+qfEIME/Od6zvFB4QEBAQLcD0jgcvQg2BXzfp5+yST7VHgryj0e8Vuc+oa6b9PN7ST7U4K8o9HvHbnPq/PLZf003z3/anBXlHocduc+r2NJTjhU1I9Eso/1JwV5R6Q84rc5ZBpmq+WVft5/eTq6co9Dinmfhmq+WVnt5/eXnV092PSDinmfhiq+WVftp/eTqqe7HpBxTzfn4YqvllX7af3k6rH7sekHFPM/C9T8rq/bT+8vOpx+7HpH8HFbmxT10zwQ+ed4PESSSOHc4qVcdK+FYj6QTaZ82uBZTeC8BAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEG1o7nH1T4hBgn5zvWd4oPCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg2tHc4+qfEIME/Od6zvFB4QEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEG1o7nH1T4hBgn5zvWd4oPCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg2tHc4+qfEIP2ZoxO3DnO8V6PGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIIGEZBAwjIINmgaMR3DmnxCD/9k=" alt="IP Servis logo" />
+        </div>
+
+        <div class="nav" aria-label="Navigacija">
+          <a href="#usluge">Usluge</a>
+          <a href="#rabljeni">Rabljeni uređaji</a>
+          <a href="#onama">O nama</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="tel:+385992225888">📞 Nazovi</a>
+          <a class="btn secondary" href="https://wa.me/385992225888" target="_blank" rel="noreferrer">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="pill fade"><span class="dot"></span> Brz i stručan servis • Ul. Ante Šupuka 7, Šibenik</div>
+
+      <div class="grid2" style="margin-top:16px">
+        <div class="fade">
+          <h1>Servis mobitela i tableta <span style="color:var(--gold)">bez stresa</span>.</h1>
+          <p class="lead">Popravci iPhone, Samsung, Huawei, Xiaomi i drugih uređaja. Dijagnostika, mikroservis i spašavanje podataka — sve na jednom mjestu.</p>
+
+          <div class="actions" style="margin-top:16px">
+            <a class="btn" href="#kontakt">📍 Kako do nas</a>
+            <a class="btn secondary" href="#rabljeni">🛒 Rabljeni uređaji</a>
+          </div>
+
+          <div class="chips">
+            <span class="chip">Mikrolemljenje</span>
+            <span class="chip">Spašavanje podataka</span>
+            <span class="chip">Otkup i prodaja</span>
+            <span class="chip">Dodatna oprema</span>
+          </div>
+        </div>
+
+        <div class="card fade">
+          <div class="pad">
+            <h3>Brze informacije</h3>
+
+            <div class="kv">
+              <div class="k"><span>⏱</span></div>
+              <div class="v">
+                <div class="t">Radno vrijeme</div>
+                <div class="s">Ponedjeljak: 8:00 – 19:00<br>
+Utorak: 8:00 – 15:00<br>
+Srijeda: 8:00 – 19:00<br>
+Četvrtak: 8:00 – 15:00<br>
+Petak: 8:00 – 19:00<br>
+Subota: 9:00 – 13:00</div>
+              </div>
+            </div>
+
+            <div class="kv">
+              <div class="k"><span>📍</span></div>
+              <div class="v">
+                <div class="t">Adresa</div>
+                <div class="s">Ul. Ante Šupuka 7, 22000 Šibenik</div>
+              </div>
+            </div>
+
+            <div class="actions" style="margin-top:12px">
+              <a class="btn" href="tel:+385992225888">📞 +385 99 222 5 888</a>
+              <a class="btn secondary" href="https://www.instagram.com/ipservis/" target="_blank" rel="noreferrer">📷 @ipservis</a>
+            </div>
+
+            <div style="margin-top:12px; border-radius:18px; border:1px solid var(--stroke); background:rgba(0,0,0,.22); padding:12px">
+              <div style="font-weight:700; color:rgba(255,255,255,.92); font-size:13px">Napomena</div>
+              <div class="muted" style="font-size:13px; margin-top:6px">Za brži dogovor pošalji poruku na WhatsApp s modelom uređaja i opisom kvara.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="usluge">
+      <div class="sectionHead">
+        <div>
+          <h2>Usluge</h2>
+          <p>Popravci hardvera i softvera, mikroservis i podaci — brzo i uredno.</p>
+        </div>
+        <a class="btn secondary" href="#kontakt" style="display:none" id="estimateBtn">Zatraži procjenu</a>
+      </div>
+
+      <div class="cards4">
+        <div class="card mini"><div class="pad">
+          <div class="iconBox"><span>🛠</span></div>
+          <h4>Servis mobitela</h4>
+          <p>Zamjene ekrana, baterija, kućišta, tipki, konektora punjenja, kamera, senzora…</p>
+        </div></div>
+        <div class="card mini"><div class="pad">
+          <div class="iconBox"><span>🧩</span></div>
+          <h4>Mikroservis (mikrolemljenje)</h4>
+          <p>Popravci na ploči, napredna dijagnostika i rješavanje zahtjevnih kvarova.</p>
+        </div></div>
+        <div class="card mini"><div class="pad">
+          <div class="iconBox"><span>💾</span></div>
+          <h4>Spašavanje podataka</h4>
+          <p>Sigurno preuzimanje i povrat podataka s mobitela i tableta.</p>
+        </div></div>
+        <div class="card mini"><div class="pad">
+          <div class="iconBox"><span>🛍</span></div>
+          <h4>Prodaja / otkup</h4>
+          <p>Rabljeni uređaji, dodatna oprema, zaštite, maskice i savjetovanje.</p>
+        </div></div>
+      </div>
+    </section>
+
+    <section id="rabljeni">
+      <div class="sectionHead">
+        <div>
+          <h2>Rabljeni uređaji na prodaju</h2>
+          <p>Ponuda se mijenja — za rezervaciju nazovi ili pošalji poruku.</p>
+        </div>
+      </div>
+
+      <div class="devicesControls">
+        <input id="q" placeholder="Pretraži (model, memorija, stanje…)" />
+        <select id="brand">
+          <option value="all">Svi brendovi</option>
+        </select>
+        <select id="sort">
+          <option value="popular">Preporučeno</option>
+          <option value="new">Najnovije</option>
+          <option value="price_asc">Cijena: niža → viša</option>
+          <option value="price_desc">Cijena: viša → niža</option>
+        </select>
+      </div>
+
+      <div class="devicesGrid" id="devices"></div>
+      <div class="small">* Cijene su informativne. Stvarno stanje i dostupnost provjeri kontaktom.</div>
+    </section>
+
+    <section id="onama">
+      <div class="aboutGrid">
+        <div class="card"><div class="pad">
+          <h2 style="margin:0; font-size:24px">O nama</h2>
+          <p class="muted" style="margin-top:10px; line-height:1.6">
+            IP Servis je servis mobilnih uređaja u centru Šibenika. Radimo popravke svih vrsta mobitela i tableta (iPhone, Samsung, Huawei, Xiaomi i drugi).
+            Fokus je na kvalitetnim dijelovima, urednoj izvedbi i jasnom dogovoru prije popravka.
+<p class="muted" style="margin-top:12px; line-height:1.6">
+Radimo potpuno transparentno — cijenu popravka javljamo odmah ako je moguće, 
+ili nakon dijagnostike, ali uvijek prije početka popravka. 
+Popravak radimo tek nakon što stranka pristane na dogovorenu cijenu.
+</p>
+
+          </p>
+          <div class="badges">
+            <span class="badge soft">Zamjene ekrana i baterija</span>
+            <span class="badge soft">Konektori punjenja</span>
+            <span class="badge soft">Kamera / senzori</span>
+            <span class="badge soft">Softverski problemi</span>
+            <span class="badge soft">Spašavanje podataka</span>
+          </div>
+        </div></div>
+
+        <div class="card"><div class="pad">
+          <h2 style="margin:0; font-size:24px">Zašto IP Servis</h2>
+          <div class="stack">
+            <div><div class="tt">Brzo</div><div class="ss">Jasna procjena i dogovor prije popravka.</div></div>
+            <div><div class="tt">Pouzdano</div><div class="ss">Dijagnostika i testiranje prije izdavanja uređaja.</div></div>
+            <div><div class="tt">Transparentno</div><div class="ss">Preporuka najboljeg omjera cijene i kvalitete.</div></div>
+          </div>
+        </div></div>
+      </div>
+    </section>
+
+    <section id="kontakt">
+      <div class="contactGrid">
+        <div class="card"><div class="pad">
+          <h2 style="margin:0; font-size:24px">Kontakt</h2>
+
+          <div style="display:grid; gap:10px; margin-top:12px">
+            <div style="display:grid; grid-template-columns:1fr; gap:10px" class="two">
+              <div style="border-radius:18px; border:1px solid var(--stroke); background:rgba(0,0,0,.22); padding:12px">
+                <div style="font-weight:700; font-size:13px">📞 Telefon</div>
+                <a class="muted" style="display:block; margin-top:6px" href="tel:+385992225888">+385 99 222 5 888</a>
+              </div>
+              <div style="border-radius:18px; border:1px solid var(--stroke); background:rgba(0,0,0,.22); padding:12px">
+                <div style="font-weight:700; font-size:13px">⏱ Radno vrijeme</div>
+                <div class="muted" style="margin-top:6px">Ponedjeljak: 8:00 – 19:00<br>
+Utorak: 8:00 – 15:00<br>
+Srijeda: 8:00 – 19:00<br>
+Četvrtak: 8:00 – 15:00<br>
+Petak: 8:00 – 19:00<br>
+Subota: 9:00 – 13:00</div>
+              </div>
+            </div>
+
+            <div style="border-radius:18px; border:1px solid var(--stroke); background:rgba(0,0,0,.22); padding:12px">
+              <div style="font-weight:700; font-size:13px">📍 Lokacija</div>
+              <div class="muted" style="margin-top:6px">Ul. Ante Šupuka 7, 22000 Šibenik</div>
+              <div class="actions" style="margin-top:10px">
+                <a class="btn" href="https://www.google.com/maps?q=Ul.+Ante+%C5%A0upuka+7,+%C5%A0ibenik" target="_blank" rel="noreferrer">🗺 Google Maps</a>
+                <a class="btn secondary" href="https://www.instagram.com/ipservis/" target="_blank" rel="noreferrer">📷 Instagram</a>
+              </div>
+            </div>
+
+            <div style="border-radius:22px; border:1px solid var(--stroke); background:rgba(0,0,0,.22); padding:14px">
+              <div style="font-weight:800; font-size:13px">Brzi upit</div>
+              <div class="muted" style="margin-top:6px; font-size:13px">Klikni i pošalji poruku s modelom uređaja i opisom kvara.</div>
+              <div class="actions" style="margin-top:10px">
+                <a class="btn" href="https://wa.me/385992225888?text=Pozdrav!%20Trebam%20procjenu%20popravka.%20Model%20ure%C4%91aja%3A%20____.%20Problem%3A%20____." target="_blank" rel="noreferrer">💬 WhatsApp upit</a>
+                <a class="btn secondary" href="tel:+385992225888">📞 Nazovi</a>
+              </div>
+            </div>
+          </div>
+        </div></div>
+
+        <div class="card map">
+          <iframe
+            title="IP Servis lokacija"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=Ul.+Ante+%C5%A0upuka+7,+%C5%A0ibenik&output=embed"></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; flex-direction:column; gap:10px; align-items:flex-start; justify-content:space-between">
+        <div class="muted" style="font-size:13px">
+          <span style="color:rgba(255,255,255,.92); font-weight:700">IP Servis</span> • Ul. Ante Šupuka 7, Šibenik • +385 99 222 5 888
+        </div>
+        <div class="actions">
+          <a class="btn secondary" href="#usluge">Usluge</a>
+          <a class="btn secondary" href="#rabljeni">Rabljeni uređaji</a>
+        </div>
+      </div>
+      <div style="margin-top:12px; font-size:12px; color:rgba(255,255,255,.45)">© <span id="y"></span> IP Servis. Sva prava pridržana.</div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Ponuda rabljenih uređaja — OVDJE mijenjaš listu (najlakše)
+    const usedDevices = [
+      {
+        id: 'ip-001',
+        brand: 'Apple',
+        model: 'iPhone 13',
+        priceEur: 399,
+        condition: 'Odlično',
+        warranty: '3 mj.',
+        storage: '128 GB',
+        color: 'Midnight',
+        notes: 'Baterija 90%+ • Otključan • Testiran',
+        tags: ['Rabljeno', 'Testirano']
+      },
+      {
+        id: 'ip-002',
+        brand: 'Samsung',
+        model: 'Galaxy S21',
+        priceEur: 299,
+        condition: 'Vrlo dobro',
+        warranty: '1 mj.',
+        storage: '128 GB',
+        color: 'Phantom Gray',
+        notes: 'Sitni tragovi korištenja • 100% ispravno',
+        tags: ['Rabljeno']
+      },
+      {
+        id: 'ip-003',
+        brand: 'Xiaomi',
+        model: 'Redmi Note 12',
+        priceEur: 159,
+        condition: 'Kao novo',
+        warranty: '3 mj.',
+        storage: '128 GB',
+        color: 'Onyx Gray',
+        notes: 'U kompletu punjač • Spreman za korištenje',
+        tags: ['Top cijena']
+      },
+    ];
+
+    const els = {
+      q: document.getElementById('q'),
+      brand: document.getElementById('brand'),
+      sort: document.getElementById('sort'),
+      devices: document.getElementById('devices')
+    };
+
+    function formatEur(n){ return `${n} €`; }
+
+    // Napuni dropdown brendova
+    const brands = Array.from(new Set(usedDevices.map(d => d.brand)));
+    for (const b of brands){
+      const opt = document.createElement('option');
+      opt.value = b;
+      opt.textContent = b;
+      els.brand.appendChild(opt);
+    }
+
+    function render(){
+      let items = [...usedDevices];
+
+      const brand = els.brand.value;
+      if (brand !== 'all') items = items.filter(d => d.brand === brand);
+
+      const q = (els.q.value || '').trim().toLowerCase();
+      if (q){
+        items = items.filter(d =>
+          (`${d.brand} ${d.model} ${d.storage} ${d.color} ${d.condition} ${d.notes}`).toLowerCase().includes(q)
+        );
+      }
+
+      const sort = els.sort.value;
+      if (sort === 'price_asc') items.sort((a,b)=>a.priceEur-b.priceEur);
+      if (sort === 'price_desc') items.sort((a,b)=>b.priceEur-a.priceEur);
+      if (sort === 'new') items.sort((a,b)=>String(b.id).localeCompare(String(a.id)));
+
+      els.devices.innerHTML = '';
+      if (!items.length){
+        const empty = document.createElement('div');
+        empty.className = 'card';
+        empty.innerHTML = `<div class="pad" style="text-align:center; color: rgba(255,255,255,.7); padding:28px">Nema rezultata za zadane filtere.</div>`;
+        empty.style.gridColumn = '1 / -1';
+        els.devices.appendChild(empty);
+        return;
+      }
+
+      for (const d of items){
+        const card = document.createElement('div');
+        card.className = 'card';
+        const msg = encodeURIComponent(`Pozdrav! Zanima me ${d.brand} ${d.model} (${d.storage}, ${d.color}) za ${formatEur(d.priceEur)}. Je li dostupan?`);
+        const tags = (d.tags || []).map(t => `<span class="badge soft">${t}</span>`).join('');
+        card.innerHTML = `
+          <div class="pad">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px">
+              <div>
+                <div style="font-weight:800; font-size:14px">${d.brand} ${d.model}</div>
+                <div class="muted" style="font-size:13px; margin-top:4px">${d.storage} • ${d.color}</div>
+              </div>
+              <div style="text-align:right">
+                <div class="price">${formatEur(d.priceEur)}</div>
+                <div class="muted" style="font-size:12px">${d.warranty} garancije</div>
+              </div>
+            </div>
+
+            <div class="badges">
+              <span class="badge">Stanje: ${d.condition}</span>
+              ${tags}
+            </div>
+
+            <div class="muted" style="font-size:13px; margin-top:10px; line-height:1.45">${d.notes}</div>
+
+            <div class="deviceActions">
+              <a class="btn" target="_blank" rel="noreferrer" href="https://wa.me/385992225888?text=${msg}">Rezerviraj</a>
+              <a class="btn secondary" href="#kontakt">Detalji</a>
+            </div>
+          </div>
+        `;
+        els.devices.appendChild(card);
+      }
+    }
+
+    els.q.addEventListener('input', render);
+    els.brand.addEventListener('change', render);
+    els.sort.addEventListener('change', render);
+    render();
+
+    function tweak(){
+      const two = document.querySelector('.two');
+      if (two){
+        two.style.gridTemplateColumns = window.innerWidth >= 640 ? '1fr 1fr' : '1fr';
+      }
+      const eb = document.getElementById('estimateBtn');
+      if (eb) eb.style.display = window.innerWidth >= 880 ? 'inline-flex' : 'none';
+    }
+    window.addEventListener('resize', tweak);
+    tweak();
+  </script>
+</body>
+</html>
